@@ -4,7 +4,7 @@ info:
   version: "1.0.00"
   description: A test API to be used in hosting the API documentation on Github pages.  It models a testing repository
   x-logo: 
-    url: "https://transactionjunction.co.za/wp-content/uploads/2020/04/footerlogofull-1.png"
+    url: "logo_TJ_horizontalLHS.png"
 
 paths:
   /tests:

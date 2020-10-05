@@ -1,0 +1,41 @@
+openapi: "3.0.3"
+info: 
+  title: "People API"
+  version: "1.0.00"
+  description: An API for managing people.  The API will be used as part of a test setup for Github pages
+  
+paths:
+  /people:
+    get:
+      description: Returns a list of all the people in the database
+      responses:
+        200: 
+          description: A successful response containing a list of people
+          content:
+            "application/json":
+              schema: 
+                type: array
+                items:
+                  $ref: "#/components/schemas/Person"
+        404: 
+          description: No people were found
+              
+components:
+  schemas:
+    Person:
+      type: object
+      properties:
+        name: 
+          type: string
+          description: The person's first name
+          example: 'John'
+        surname: 
+          type: string
+          description: The person's surname
+          example: 'Bull'
+        id_number:
+          type: string
+          description: The person's SA ID number
+          pattern: '/d{13}'
+          example: "7301215008081"
+        

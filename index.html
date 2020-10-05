@@ -46,8 +46,10 @@
     function clickHandler(s) {
       // first fetch the file
       fetch(s).then(rsp => {
-        document.getElementById("yaml").innerHTML = rsp;  
-      })
+        return rsp.text();
+      }).then(htm => {
+        document.getElementById("yaml").innerHTML = htm;  
+      });
     }
   </script>
 </html>

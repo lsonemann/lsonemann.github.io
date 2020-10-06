@@ -30,7 +30,7 @@
             <div class="column is-one-fifth">
               <aside class="menu">
                  <ul class="menu-list">
-                  <li><a onclick="clickHandler('https://lsonemann.github.io/test.html')">Test Repository</a></li>
+                  <li><a onclick="clickHandler('test.html')">Test Repository</a></li>
                   <li><a onclick="clickHandler('https://lsonemann.github.io/people.html')">People Database</a></li>
                 </ul>
               </aside>
@@ -41,14 +41,16 @@
             </div>
           </div>
       </section>
+      
   </body>
+  <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"> </script>
   <script>
     function clickHandler(s) {
       // first fetch the file
       fetch(s).then(rsp => {
         return rsp.text();
       }).then(htm => {
-        document.getElementById("yaml").innerHTML = htm;  
+        document.getElementById("yaml").innerHTML = '<redoc spec-url='https://lsonemann.github.io/test.yaml'></redoc>';  
       });
     }
   </script>

@@ -1,58 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My test API Doc</title>
-    <!-- needed for adaptive design -->
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
-
-    
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
-  </head>
-  <body>
-      <section class="hero">
-        <div class="hero-body">
-          <div class="container">
-            <h1 class="title">API documentation</h1>
-            <h2 class="subtitle">All APIs offered by us are available below</h2>
-          </div>
-        </div>
-      </section>
-      <section class="section">
-          <div class="columns">
-            <div class="column is-one-fifth">
-              <aside class="menu">
-                 <ul class="menu-list">
-                  <li><a onclick="clickHandler('test.html')">Test Repository</a></li>
-                  <li><a onclick="clickHandler('https://lsonemann.github.io/people.html')">People Database</a></li>
-                </ul>
-              </aside>
-            </div>
-            <div class="column">
-              <div class="container" id="yaml">
-                  <redoc spec-url='https://lsonemann.github.io/test.yaml'></redoc>
-              </div>
-            </div>
-          </div>
-      </section>
-      <script>
-        function clickHandler(s) {
-          // first fetch the file
-          fetch(s).then(rsp => {
-            return rsp.text();
-          }).then(htm => {
-            document.getElementById("yaml").innerHTML = "<redoc spec-url='https://lsonemann.github.io/test.yaml'></redoc>";  
-          });
-        }
-      </script>
-      <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"> </script>
-
-  </body>
-</html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--<link rel="stylesheet" type="text/css" href="https://pagecdn.io/lib/swagger-ui/v3.31.1/swagger-ui.css"> -->
+<link rel="stylesheet" type="text/css" href="swagger-ui.css">
+<title>Transaction Junction OpenPayments API</title>
+<body>
+	<div id="openapi">
+		<script src="https://pagecdn.io/lib/swagger-ui/v3.31.1/swagger-ui-bundle.js"></script>
+		<script>
+			window.onload = function () {
+  				const ui = SwaggerUIBundle({
+    				url: "OpenPayments.yaml",
+    				dom_id: "#openapi"
+  				})
+  			window.ui = ui;
+			}
+	</script>
+	</div>
+</body>

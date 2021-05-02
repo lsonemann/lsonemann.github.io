@@ -1,0 +1,156 @@
+openapi: 3.0.3
+info:
+  title: "Sensor API"
+  description: |
+    The **Sensor API** is used for two main areas, namely for sensors to update their measures, and secondly for the web application to obtain data and allow for editing of sensor type characteristics etc.
+    Perhaps those two should be separated into two servers??
+  version: 1.0.0
+
+servers:
+  - url: https://ls-sensors-sensorserver.herokuapp.com/sensor_api/v1
+    description: "Local development server"
+  - url: http://sonemann.servehttp.com:8080/sensor_api/v1
+    description: Production server
+
+paths:
+  /sensors:
+    get:
+      description: returns a list of sensors
+      responses:
+        '200':  
+          description: Retuns an array of sensor items
+          content: 
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Sensor'
+        '500':
+          description: Server error
+  
+  /sensor_data:
+    get:
+      description: returns all sensors' measurements for the last 7 days
+      parameters: 
+        - in: "query"
+          name: "id"
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Returns an array of sensor measurements
+          content:
+            aplication/json:
+              schema: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/SensorData'
+                  
+  /settings:
+    get:
+      description: Returns all settings
+      parameters:
+        - in: "query"
+          name: "type"
+          required: false
+          schema:
+            type: string
+  
+      responses:
+        '200':
+          description: Returns an array of sensor types
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: "#/components/schemas/SensorType"
+        '501':
+          description: Not implemented
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref:  "#/components/schemas/ErrorNotImplemented"
+
+components:
+  schemas: 
+    Sensor:
+      type: object
+      properties:
+        ID: 
+          description: 'The id number allocated by the database, used as the primary
+          key.'
+          type: integer
+          example: 12
+        Type:
+          description: The type of sensor, also referring to the measurments it sends.  Sensors that provide multiple measures, e.g. DHT11, are seen as two sensors.
+          type: string
+          enum:
+            - 'Light'
+            - 'Humidity'
+            - 'Temperature'
+          example: 'Humidity'
+        Location:
+          description: The location of the sensor.  
+          type: string
+          example: Study
+        Value:
+          description: The current sensor measurement value.
+          type: string
+          example: "64"
+        YMax:
+          description: The maximum value of the Y axis on a chart. The X axis represents time.
+          type: integer
+          example: 100
+        YMin:
+          description: The maximum value of the Y axis on a chart. The X axis represents time.          
+          type: integer
+          example: 0
+        Colour:
+          description: The colour of the metric box for this sensor, based on its type.
+          type: string
+          example: "#2bd2af"
+        Suffix:
+          description: A suffix that can be used to quantify the sensor's measurement tye.  For example, % for humidity.
+          type: string
+          example: "%"
+        Icon:
+          description: An icon for the metric box, based on the sensor type.
+          type: string
+          example: "tint"
+          
+    SensorData:
+      type: object
+      properties:
+        Day:
+          type: string
+          format: date
+          example: "2021-04-17"
+        Points: 
+          type: array
+          items:
+            $ref: '#/components/schemas/Point'
+            
+    Point:
+      type: object
+      properties:
+        Time: 
+          type: string
+          format: time
+          example: "15:00:00"
+        Value:
+          type: integer
+    
+    SensorType:
+      type: string
+      example: "Humidity"
+          
+    ErrorNotImplemented:
+      type: string
+      properties:
+        Code: 
+          type: string
+        Body: 
+          type: string
